@@ -1,17 +1,14 @@
 import Foundation
 
-
 actor APIRequester {
     
     static let shared = APIRequester()
     
-    private static let baseURL = "INSERT_BACKEND_URL_HERE"
+    private static let baseURL = "https://bike-share-widget.vercel.app"
     
     private init() {}
     
-    // abstract get request method
-    static private func getRequest<T: Decodable>(endpoint: String, queryParameters: [String: String]? = nil) async throws -> T {
-        
+    static func getRawData(endpoint: String, queryParameters: [String: String]? = nil) async throws -> Data {
         var urlComponents = URLComponents(string: "\(baseURL)\(endpoint)")
         if let queryParameters = queryParameters {
             urlComponents?.queryItems = queryParameters.map { URLQueryItem(name: $0.key, value: $0.value) }
@@ -29,13 +26,10 @@ actor APIRequester {
             throw URLError(.badServerResponse)
         }
         
-        let decodedResponse = try JSONDecoder().decode(T.self, from: data)
-        return decodedResponse
+        return data
     }
     
-    // abstract post request method
-    static private func postRequest<T: Decodable>(endpoint: String, body: [String: String]?) async throws -> T {
-        
+    static func postRawData(endpoint: String, body: [String: String]?) async throws -> Data {
         guard let url = URL(string: "\(baseURL)\(endpoint)") else {
             throw URLError(.badURL)
         }
@@ -50,13 +44,11 @@ actor APIRequester {
                 .data(using: .utf8)
         }
         
-        
         let (data, response) = try await URLSession.shared.data(for: request)
         guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
             throw URLError(.badServerResponse)
         }
         
-        let decodedResponse = try JSONDecoder().decode(T.self, from: data)
-        return decodedResponse
+        return data
     }
 }

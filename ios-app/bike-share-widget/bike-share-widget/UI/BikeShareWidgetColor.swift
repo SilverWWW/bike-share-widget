@@ -4,7 +4,8 @@ import SwiftUI
 
 extension Color {
     
-    static let BSWMain: Color = Color(hex: 0x74b72e)
+    static let BSWMain = Color(hex: 0x74b72e)
+    static let darkGray = Color(hex: 0x555555)
     //    static let APPIDENTIFIERMain: Color = Color(hex: 0x000000)
     //    static let APPIDENTIFIERSecondary: Color = Color(hex: 0x000000)
     //    ...
