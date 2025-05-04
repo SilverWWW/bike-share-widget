@@ -15,9 +15,22 @@ struct HomeView: View {
         ZStack {
             VStack(spacing: 0) {
                 
-                Text.BSW("Nearby Stations", size: 38, color: Color.BSWMain, bold: true)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .padding(.bottom, 18)
+                HStack(alignment: .bottom) {
+                    Text.BSW("Nearby Stations", size: 32, color: Color.BSWMain, bold: true)
+
+                    Spacer()
+                    
+                    Picker("System", selection: $viewModel.currentBikeShareSystemChoice) {
+                        ForEach(BikeShareSystem.allCases) { system in
+                            Text(system.rawValue.capitalized)
+                        }
+                    }
+                    .tint(Color.BSWMain)
+                }
+                .frame(maxWidth: .infinity)
+                .padding(.bottom, 18)
+
+            
                 
                 HStack {
                     
@@ -142,15 +155,17 @@ struct StationCardView: View {
                         Spacer()
                     }
                 }
-                
                 else if numBikes > 0 && numEbikes == 0 {
                     Image.BSW("bike-clip", color: Color.BSWMain)
                         .frame(width: 54)
                 }
-                
                 else if numEbikes > 0 && numBikes == 0 {
                     Image.BSW("ebike-clip", color: Color.BSWMain)
                         .frame(width: 50)
+                }
+                else {
+                    Image.BSW(systemName: "xmark", color: Color.BSWMain)
+                        .frame(width: 40)
                 }
             }
             .frame(width: 60, height: 60)

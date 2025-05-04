@@ -3,13 +3,22 @@ import Foundation
 import SwiftUI
 
 extension Color {
+        
+    static var currentBikeShareSystem: BikeShareSystem = .baywheels
     
-    static let BSWMain = Color(hex: 0x74b72e)
+    static var BSWMain: Color {
+        switch currentBikeShareSystem {
+        case .baywheels:
+            return baywheels
+        case .biketown:
+            return biketown
+        }
+    }
+    
     static let darkGray = Color(hex: 0x555555)
-    //    static let APPIDENTIFIERMain: Color = Color(hex: 0x000000)
-    //    static let APPIDENTIFIERSecondary: Color = Color(hex: 0x000000)
-    //    ...
-    //    (I usually use few-letter abbreviations for App Identifiers)
+    
+    static let biketown = Color(hex: 0xff5733)
+    static let baywheels = Color(hex: 0xff00bf)
 
     init(hex: UInt, alpha: Double = 1.0) {
         let r = Double((hex & 0xFF0000) >> 16) / 255.0

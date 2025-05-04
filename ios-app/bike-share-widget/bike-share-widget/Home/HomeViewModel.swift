@@ -7,6 +7,7 @@
 
 import Foundation
 import CoreLocation
+import SwiftUI
 
 @MainActor
 class HomeViewModel: ObservableObject {
@@ -17,6 +18,16 @@ class HomeViewModel: ObservableObject {
     @Published var stations = [Station]()
     @Published var searchRadius: Double = 5.0 
     @Published var isLoading = true
+    @Published var currentBikeShareSystemChoice: BikeShareSystem = .baywheels {
+        didSet {
+            if oldValue != currentBikeShareSystemChoice {
+                swapCurrentBikeShareSystem(newSystem: currentBikeShareSystemChoice)
+                Task {
+                    await fetchNearbyStations()
+                }
+            }
+        }
+    }
     
     var searchRadiusFormatted: String {
         "\(String(format: "%.1f", searchRadius)) mi."
@@ -62,5 +73,10 @@ class HomeViewModel: ObservableObject {
         } catch (let error) {
             print(error.localizedDescription)
         }
+    }
+    
+    func swapCurrentBikeShareSystem(newSystem: BikeShareSystem) {
+        Color.currentBikeShareSystem = newSystem
+        BikeShareService.currentBikeShareSystem = newSystem
     }
 }

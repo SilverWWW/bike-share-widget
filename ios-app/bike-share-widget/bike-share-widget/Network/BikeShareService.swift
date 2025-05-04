@@ -3,10 +3,31 @@ import CoreLocation
 
 // MARK: - BikeShare Service
 class BikeShareService {
+    
+    static var currentBikeShareSystem: BikeShareSystem = .baywheels
+        
+    private static let baywheels = "/api/v1/baywheels"
+    private static let biketown = "/api/v1/biketown"
+    
     // MARK: - Endpoints
     private enum Endpoint {
-        static let stations = "/api/v1/baywheels/stations"
-        static let nearbyStations = "/api/v1/baywheels/stations/nearby"
+        static var stations: String {
+            switch currentBikeShareSystem {
+            case .baywheels:
+                return "/api/v1/baywheels/stations"
+            case .biketown:
+                return "/api/v1/biketown/stations"
+            }
+        }
+        
+        static var nearbyStations: String {
+            switch currentBikeShareSystem {
+            case .baywheels:
+                return "/api/v1/baywheels/stations/nearby"
+            case .biketown:
+                return "/api/v1/biketown/stations/nearby"
+            }
+        }
     }
     
     // MARK: - Error Types

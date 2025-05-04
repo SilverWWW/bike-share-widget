@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct TabBarView: View {
-    
+        
     var body: some View {
         
         TabView {
@@ -20,7 +20,7 @@ struct TabBarView: View {
                     }
             }
         }
-        .tint(Color.BSWMain)
+        .tint(.black)
     }
     
 }
