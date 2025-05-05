@@ -38,11 +38,11 @@ struct HomeView: View {
                         Text.BSW("Distance", size: 12, color: Color.darkGray)
                         Text.BSW(viewModel.searchRadiusFormatted, size: 18, color: Color.BSWMain, bold: true)
                     }
-                    .frame(width: 70, alignment: .leading)
+                    .frame(width: 80, alignment: .leading)
                     
                     Slider(
                         value: $viewModel.searchRadius,
-                        in: 0...10
+                        in: viewModel.minimumSearchRadius...viewModel.maximumSearchRadius
                     ) {
                         Text("Speed")
                     } onEditingChanged: { editing in
@@ -175,29 +175,18 @@ struct StationCardView: View {
                     .lineLimit(1)
                                 
                 HStack {
-                    VStack(alignment: .leading) {
-                        HStack {
-                            Text.BSW("Bikes: \(numBikes)", size: 16, color: Color.darkGray)
-                            Text.BSW("E-Bikes: \(numEbikes)", size: 16, color: Color.darkGray)
-                        }
-                        Text.BSW("\(formattedDistance) miles away", size: 16, color: Color.BSWMain, bold: true)
-                    }
-                    Spacer()
-                    
-                    Button(action: {
-                        print(1)
-                    }) {
-                        ZStack {
-                            RoundedRectangle(cornerRadius: 12)
-                                .foregroundStyle(Color.BSWMain)
-                            Text.BSW("Reserve", size: 16, color: .white, bold: true)
-                                .padding(2)
-                        }
-                        .frame(width: 90, height: 30, alignment: .trailing)
-                    }
+                    Text.BSW("Bikes: \(numBikes)", size: 16, color: Color.darkGray)
+                    Text.BSW("E-Bikes: \(numEbikes)", size: 16, color: Color.darkGray)
                 }
+                                
+                Text.BSW("\(formattedDistance) miles away", size: 16, color: Color.BSWMain, bold: true)
+                    .padding(.trailing, 12)
+
             }
+            
+            Spacer()
         }
+        .frame(maxWidth: .infinity)
         .padding(8)
         .overlay(
             RoundedRectangle(cornerRadius: 12)

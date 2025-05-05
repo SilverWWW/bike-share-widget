@@ -29,8 +29,15 @@ class HomeViewModel: ObservableObject {
         }
     }
     
+    let minimumSearchRadius: Double = 0
+    let maximumSearchRadius: Double = 10
+    
     var searchRadiusFormatted: String {
-        "\(String(format: "%.1f", searchRadius)) mi."
+        if searchRadius == maximumSearchRadius {
+            return "unlimited"
+        } else {
+            return "\(String(format: "%.1f", searchRadius)) mi."
+        }
     }
 
     enum LocationStatus {
@@ -68,7 +75,7 @@ class HomeViewModel: ObservableObject {
         do {
             stations = try await dataManager.getNearbyStations(
                 userLocation: (location.coordinate.latitude, location.coordinate.longitude),
-                radiusMiles: searchRadius)
+                radiusMiles: searchRadius == maximumSearchRadius ? 999999 : searchRadius)
             isLoading = false
         } catch (let error) {
             print(error.localizedDescription)

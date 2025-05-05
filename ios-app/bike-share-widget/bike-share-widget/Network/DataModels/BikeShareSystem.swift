@@ -8,7 +8,7 @@
 import Foundation
 
 enum BikeShareSystem: String, CaseIterable, Identifiable {
-    case baywheels, biketown
+    case baywheels, biketown, bluebikes, citibike, divvy
     
     var id: Self { self }
 }

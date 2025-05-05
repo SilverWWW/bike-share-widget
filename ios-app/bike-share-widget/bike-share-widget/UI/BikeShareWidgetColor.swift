@@ -12,13 +12,22 @@ extension Color {
             return baywheels
         case .biketown:
             return biketown
+        case .bluebikes:
+            return bluebikes
+        case .citibike:
+            return citibike
+        case .divvy:
+            return divvy
         }
     }
     
     static let darkGray = Color(hex: 0x555555)
     
-    static let biketown = Color(hex: 0xff5733)
-    static let baywheels = Color(hex: 0xff00bf)
+    private static let biketown = Color(hex: 0xff5733)
+    private static let baywheels = Color(hex: 0xff00bf)
+    private static let bluebikes = Color(hex: 0x006fb9)
+    private static let citibike = Color(hex: 0x0047ab)
+    private static let divvy = Color(hex: 0x48bbdb)
 
     init(hex: UInt, alpha: Double = 1.0) {
         let r = Double((hex & 0xFF0000) >> 16) / 255.0

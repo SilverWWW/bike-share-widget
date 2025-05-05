@@ -6,26 +6,36 @@ class BikeShareService {
     
     static var currentBikeShareSystem: BikeShareSystem = .baywheels
         
-    private static let baywheels = "/api/v1/baywheels"
-    private static let biketown = "/api/v1/biketown"
-    
     // MARK: - Endpoints
     private enum Endpoint {
+        
         static var stations: String {
             switch currentBikeShareSystem {
             case .baywheels:
-                return "/api/v1/baywheels/stations"
+                return "/api/v1/\(BikeShareSystem.baywheels)/stations"
             case .biketown:
-                return "/api/v1/biketown/stations"
+                return "/api/v1/\(BikeShareSystem.biketown)/stations"
+            case .bluebikes:
+                return "/api/v1/\(BikeShareSystem.bluebikes)/stations"
+            case .citibike:
+                return "/api/v1/\(BikeShareSystem.citibike)/stations"
+            case .divvy:
+                return "/api/v1/\(BikeShareSystem.divvy)/stations"
             }
         }
         
         static var nearbyStations: String {
             switch currentBikeShareSystem {
             case .baywheels:
-                return "/api/v1/baywheels/stations/nearby"
+                return "/api/v1/\(BikeShareSystem.baywheels)/stations/nearby"
             case .biketown:
-                return "/api/v1/biketown/stations/nearby"
+                return "/api/v1/\(BikeShareSystem.biketown)/stations/nearby"
+            case .bluebikes:
+                return "/api/v1/\(BikeShareSystem.bluebikes)/stations/nearby"
+            case .citibike:
+                return "/api/v1/\(BikeShareSystem.citibike)/stations/nearby"
+            case .divvy:
+                return "/api/v1/\(BikeShareSystem.divvy)/stations/nearby"
             }
         }
     }
